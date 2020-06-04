@@ -1,0 +1,10 @@
+body {
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+}
+
+.container {
+  margin-top: 75px;
+  padding: 50px 100px;
+  min-width: 100%;
+}
