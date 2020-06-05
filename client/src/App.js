@@ -24,7 +24,7 @@ class App extends Component {
       // Get the contract instance.
       const networkId = await web3.eth.net.getId();
       const deployedNetwork = LotteryContract.networks[networkId];
-      const instance = new web3.eth.Contract(LotteryContract.abi, deployedNetwork.address);
+      const instance = new web3.eth.Contract(LotteryContract.abi, deployedNetwork && deployedNetwork.address);
 
       const balance = await web3.eth.getBalance(deployedNetwork.address);
 

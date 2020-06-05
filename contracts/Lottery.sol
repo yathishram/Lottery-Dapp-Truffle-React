@@ -4,6 +4,7 @@ pragma solidity ^0.6.0;
 contract Lottery {
     address public owner;
     address[] public players;
+    uint256 public balance;
 
     constructor() public {
         owner = msg.sender;
@@ -16,10 +17,11 @@ contract Lottery {
 
     function enterLottery() public payable {
         require(msg.value > 0.2 ether, "Should have more than min value");
+        balance += msg.value;
         players.push(msg.sender);
     }
 
-    function random() private view returns (uint256) {
+    function random() public view returns (uint256) {
         return
             uint256(
                 keccak256(
@@ -30,8 +32,9 @@ contract Lottery {
 
     function pickWinner() public restricted {
         uint256 index = random() % players.length;
-        payable(players[index]).transfer(address(this).balance);
+        payable(players[index]).transfer(balance);
         players = new address[](0);
+        balance = 0;
     }
 
     function playersLength() public view returns (uint256) {
